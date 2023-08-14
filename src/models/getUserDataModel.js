@@ -3,7 +3,6 @@ const sql = require("mssql");
 
 const UserDataModel = async (token) => {
   const pool = await connection;
-
   if (token == null || token == undefined || token == "") return 401;
 
   const user = await pool
@@ -12,6 +11,7 @@ const UserDataModel = async (token) => {
     .query("SELECT * FROM tbl_funcionarios WHERE Id_funcionario = @id");
 
   const data = user.recordset[0];
+
   return data;
 };
 

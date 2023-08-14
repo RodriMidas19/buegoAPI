@@ -7,6 +7,8 @@ const registerController = require("../controllers/registerController");
 const tokenController = require("../controllers/resettokenController");
 const logoutController = require("../controllers/logoutController");
 const userDataController = require("../controllers/getUserDataController");
+const trainingController = require("../controllers/trainingController");
+const consultasController = require("../controllers/consultasController");
 //USER FUNC
 router.post("/register", registerController.funcregister);
 router.post("/login", loginController.loginController);
@@ -17,5 +19,20 @@ router.get(
   auth.authenticateToken,
   userDataController.UserDataController
 );
+
+//Training
+router.get("/treinos", trainingController.getTreinos);
+router.post("/training", auth.authenticateToken, trainingController.addTreino);
+router.delete("/Dtraining", trainingController.DeleteTrain);
+
+//Consultas
+router.get("/consultas", consultasController.getConsultas);
+
+router.post(
+  "/consulta",
+  auth.authenticateToken,
+  consultasController.addConsultas
+);
+router.delete("/Dconsulta", consultasController.DeleteConsultas);
 
 module.exports = router;
