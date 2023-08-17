@@ -12,15 +12,12 @@ const createAccount = async (user) => {
       .query("SELECT * FROM tbl_funcionarios where Email = @email");
 
     const data = email.recordset[0];
-  } catch (error) {
-    console.log(error);
-  }
-  console.log(data);
-  if (data != undefined || data != null) {
-    return 406;
-  } else {
-    const hashedPassowrd = await bcrypt.hash(user.password, 10);
-    try {
+
+    if (data != undefined || data != null) {
+      return 406;
+    } else {
+      const hashedPassowrd = await bcrypt.hash(user.password, 10);
+
       const result = await pool
         .request()
         .input("nome", sql.VarChar(50), user.nome)
@@ -32,10 +29,11 @@ const createAccount = async (user) => {
         .query(
           "INSERT INTO tbl_funcionarios(Nome,Idade,Email,Cargo,Password,Avatar) VALUES (@nome,@idade,@email,@cargo,@password,@avatar)"
         );
-    } catch (error) {
-      console.error(error);
+
+      return 201;
     }
-    return 201;
+  } catch (e) {
+    console.log(e);
   }
 };
 
