@@ -1,5 +1,21 @@
 const model = require("../models/TraningModel");
 
+const getTreinosHD = async (request, response) => {
+  let body = {
+    hora: request.body.hora,
+    data: request.body.data,
+  };
+  const resp = await model.getTreinosHD(body);
+
+  if (resp == 401) {
+    return response
+      .status(401)
+      .json({ message: "Não existem treinos nessa data e hora" });
+  } else {
+    return response.status(200).json(resp);
+  }
+};
+
 const addTreino = async (request, response) => {
   let body = {
     hora: request.body.hora,
@@ -38,4 +54,4 @@ const getTreinos = async (request, response) => {
   }
 };
 
-module.exports = { addTreino, DeleteTrain, getTreinos };
+module.exports = { addTreino, DeleteTrain, getTreinos, getTreinosHD };

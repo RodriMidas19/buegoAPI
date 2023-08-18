@@ -21,6 +21,7 @@ router.get(
 );
 
 //Training
+router.get("/treinosHD", trainingController.getTreinosHD);
 router.get("/treinos", trainingController.getTreinos);
 router.post("/training", auth.authenticateToken, trainingController.addTreino);
 router.delete("/Dtraining", trainingController.DeleteTrain);
