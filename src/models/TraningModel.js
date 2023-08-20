@@ -66,7 +66,11 @@ const getTreinos = async () => {
   try {
     const pool = await connection;
 
-    const consultas = await pool.request().query("SELECT * FROM tbl_treinos");
+    const consultas = await pool
+      .request()
+      .query(
+        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario"
+      );
 
     const data = consultas.recordset;
 
