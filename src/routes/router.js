@@ -21,6 +21,8 @@ router.get(
 );
 
 //Training
+router.get("/treinosNomeData/:nome/:data",trainingController.getTreinosNomeData)
+router.get("/treinosNome/:nome",trainingController.getTreinosNome);
 router.get("/treinosHD/:dia/:mes/:ano", trainingController.getTreinosHD);
 router.get("/treinos", trainingController.getTreinos);
 router.post("/training", auth.authenticateToken, trainingController.addTreino);

@@ -79,4 +79,44 @@ const getTreinos = async () => {
     console.log(error);
   }
 };
-module.exports = { addTreino, deleteTrain, getTreinos, getTreinosHD };
+
+const getTreinosNome = async (nome)=>{
+  try {
+    const pool = await connection;
+    const treinos = await pool
+      .request()
+      .input("nome", sql.VarChar(50), nome)
+      .query(
+        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario WHERE nome_aluno = @nome"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+
+  } catch (error) {
+    console.log("ERROR: " + error);
+  }
+}
+const getTreinosNomeData = async (nome,data)=>{
+  try {
+    const pool = await connection;
+    const treinos = await pool
+      .request()
+      .input("nome", sql.VarChar(50), nome)
+      .input("data",sql.VarChar(100),data)
+      .query(
+        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario WHERE nome_aluno = @nome AND data_treino = @data"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+
+  } catch (error) {
+    console.log("ERROR: " + error);
+  }
+}
+module.exports = { addTreino, deleteTrain, getTreinos, getTreinosHD,getTreinosNome,getTreinosNomeData };
