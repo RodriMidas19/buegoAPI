@@ -1,16 +1,15 @@
 const model = require("../models/TraningModel");
 
 const getTreinosHD = async (request, response) => {
-  let body = {
-    hora: request.body.hora,
-    data: request.body.data,
-  };
-  const resp = await model.getTreinosHD(body);
+ 
+  const data = request.params.dia + '/' + request.params.mes + '/' +request.params.ano;
+  console.log(data)
+  const resp = await model.getTreinosHD(data);
 
   if (resp == 401) {
     return response
       .status(401)
-      .json({ message: "Não existem treinos nessa data e hora" });
+      .json("Não existem treinos nessa data");
   } else {
     return response.status(200).json(resp);
   }
@@ -46,7 +45,6 @@ const DeleteTrain = async (request, response) => {
 };
 
 const getTreinos = async (request, response) => {
-  console.log("cheugei");
   const resp = await model.getTreinos();
 
   if (resp) {

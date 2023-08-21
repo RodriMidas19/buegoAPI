@@ -5,7 +5,7 @@ const app = express();
 const whitelist = [
   "http://localhost:3000",
   "http://localhost:3333",
-  "http://localhost:4200",
+  "https://www.buego.pt"
 ];
 
 const corsOptions = {
