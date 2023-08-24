@@ -15,6 +15,7 @@ const getTreinosHD = async (request, response) => {
 };
 
 const addTreino = async (request, response) => {
+  console.log(request.body);
   let body = {
     hora: request.body.hora,
     data: request.body.data,
@@ -26,11 +27,11 @@ const addTreino = async (request, response) => {
   if (resp == 401) {
     return response
       .status(401)
-      .json({ message: "Encontra-se no limite de treino para essa hora" });
+      .json("Encontra-se no limite de treino para essa hora");
   } else if (resp == 200) {
     return response
       .status(200)
-      .json({ message: "Treino registado com sucesso" });
+      .json("Treino registado com sucesso");
   }
 };
 

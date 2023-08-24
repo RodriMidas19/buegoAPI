@@ -3,7 +3,9 @@ require("dotenv").config();
 
 //Create
 const authenticateToken = async (request, response, next) => {
+  console.log("ENTREI")
   const authHeader = request.headers["authorization"];
+  console.log(authHeader)
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return response.sendStatus(401);
 
