@@ -29,8 +29,10 @@ router.post("/training", auth.authenticateToken,trainingController.addTreino);
 router.delete("/Dtraining", trainingController.DeleteTrain);
 
 //Consultas
+router.get("/consultasNomeData/:nome/:data",consultasController.getConsultasNomeData)
+router.get("/consultasNome/:nome",consultasController.getConsultasNome);
+router.get("/consultasD/:dia/:mes/:ano", consultasController.getConsultasHD);
 router.get("/consultas", consultasController.getConsultas);
-
 router.post(
   "/consulta",
   auth.authenticateToken,

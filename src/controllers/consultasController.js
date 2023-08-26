@@ -11,11 +11,11 @@ const addConsultas = async (request, response) => {
   if (resp == 401) {
     return response
       .status(401)
-      .json({ message: "Encontra-se no limite de consultas para essa hora" });
+      .json("Encontra-se no limite de consultas para essa hora");
   } else if (resp == 200) {
     return response
       .status(200)
-      .json({ message: "Consulta registada com sucesso" });
+      .json("Consulta registada com sucesso" );
   }
 };
 
@@ -35,4 +35,38 @@ const getConsultas = async (request, response) => {
     return response.status(200).json(resp);
   }
 };
-module.exports = { addConsultas, DeleteConsultas, getConsultas };
+
+const getConsultasNome = async(request,response)=>{
+  const resp = await model.getConsultasNome(request.params.nome);
+
+  if(resp == 401){
+    return response.status(401).json("Esse paciente não possui Consultas");
+  }else{
+    return response.status(200).json(resp);
+  }
+}
+
+const getConsultasNomeData = async(request,response)=>{
+  const resp = await model.getConsultasNomeData(request.params.nome,request.params.data);
+
+  if(resp == 401){
+    return response.status(401).json("Esse paciente não possui consultas desta data");
+  }else{
+    return response.status(200).json(resp);
+  }
+};
+
+const getConsultasHD = async (request, response) => {
+ 
+  const data = request.params.dia + '/' + request.params.mes + '/' +request.params.ano;
+  const resp = await model.getTreinosD(data);
+
+  if (resp == 401) {
+    return response
+      .status(401)
+      .json("Não existem consultas nessa data");
+  } else {
+    return response.status(200).json(resp);
+  }
+};
+module.exports = { addConsultas, DeleteConsultas, getConsultas,getConsultasNome, getConsultasNomeData,getConsultasHD};

@@ -1,18 +1,6 @@
 const model = require("../models/TraningModel");
 
-const getTreinosHD = async (request, response) => {
- 
-  const data = request.params.dia + '/' + request.params.mes + '/' +request.params.ano;
-  const resp = await model.getTreinosHD(data);
 
-  if (resp == 401) {
-    return response
-      .status(401)
-      .json("Não existem treinos nessa data");
-  } else {
-    return response.status(200).json(resp);
-  }
-};
 
 const addTreino = async (request, response) => {
   console.log(request.body);
@@ -71,5 +59,18 @@ const getTreinosNomeData = async(request,response)=>{
     return response.status(200).json(resp);
   }
 }
+const getTreinosHD = async (request, response) => {
+ 
+  const data = request.params.dia + '/' + request.params.mes + '/' +request.params.ano;
+  const resp = await model.getTreinosHD(data);
+
+  if (resp == 401) {
+    return response
+      .status(401)
+      .json("Não existem treinos nessa data");
+  } else {
+    return response.status(200).json(resp);
+  }
+};
 
 module.exports = { addTreino, DeleteTrain, getTreinos, getTreinosHD,getTreinosNome ,getTreinosNomeData};

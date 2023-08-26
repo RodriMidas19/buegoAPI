@@ -57,4 +57,62 @@ const getConsultas = async () => {
   }
 };
 
-module.exports = { addConsulta, deleteConsulta, getConsultas };
+const getConsultasNome = async (nome)=>{
+  try {
+    const pool = await connection;
+    const treinos = await pool
+      .request()
+      .input("nome", sql.VarChar(50), nome)
+      .query(
+        "SELECT Id_consulta,data_consulta,hora_consulta,tbl_funcionarios.Nome, nome_paciente FROM tbl_consultas inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_consultas.Id_funcionario WHERE nome_paciente = @nome"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+
+  } catch (error) {
+    console.log("ERROR: " + error);
+  }
+}
+const getConsultasNomeData = async (nome,data)=>{
+  try {
+    const pool = await connection;
+    const treinos = await pool
+      .request()
+      .input("nome", sql.VarChar(50), nome)
+      .input("data",sql.VarChar(100),data)
+      .query(
+        "SELECT Id_consulta,data_consulta,hora_consulta,tbl_funcionarios.Nome, nome_paciente FROM tbl_consultas inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_consultas.Id_funcionario WHERE data_consulta = @data AND nome_paciente = @nome"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+
+  } catch (error) {
+    console.log("ERROR: " + error);
+  }
+}
+const getTreinosD = async (data) => {
+  const pool = await connection;
+  try {
+    const treinos = await pool
+      .request()
+      .input("data", sql.VarChar(100), data)
+      .query(
+        "SELECT Id_consulta,data_consulta,hora_consulta,tbl_funcionarios.Nome, nome_paciente FROM tbl_consultas inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_consultas.Id_funcionario WHERE data_consulta = @data"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { addConsulta, deleteConsulta, getConsultas,getTreinosD,getConsultasNomeData,getConsultasNome };

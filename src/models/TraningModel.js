@@ -1,24 +1,7 @@
 const connection = require("../config/connection");
 const sql = require("mssql");
 
-const getTreinosHD = async (data) => {
-  const pool = await connection;
-  try {
-    const treinos = await pool
-      .request()
-      .input("data", sql.VarChar(100), data)
-      .query(
-        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario WHERE data_treino = @data"
-      );
-    const total = treinos.recordset;
 
-    if ((total.length == 0)) return 401;
-
-    return total;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const addTreino = async (data) => {
   const pool = await connection;
@@ -119,4 +102,22 @@ const getTreinosNomeData = async (nome,data)=>{
     console.log("ERROR: " + error);
   }
 }
+const getTreinosHD = async (data) => {
+  const pool = await connection;
+  try {
+    const treinos = await pool
+      .request()
+      .input("data", sql.VarChar(100), data)
+      .query(
+        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario WHERE data_treino = @data"
+      );
+    const total = treinos.recordset;
+
+    if ((total.length == 0)) return 401;
+
+    return total;
+  } catch (error) {
+    console.log(error);
+  }
+};
 module.exports = { addTreino, deleteTrain, getTreinos, getTreinosHD,getTreinosNome,getTreinosNomeData };
