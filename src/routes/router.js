@@ -9,7 +9,10 @@ const logoutController = require("../controllers/logoutController");
 const userDataController = require("../controllers/getUserDataController");
 const trainingController = require("../controllers/trainingController");
 const consultasController = require("../controllers/consultasController");
+const editController = require("../controllers/editUserController");
+
 //USER FUNC
+router.put("/edit",auth.authenticateToken,editController.editController);
 router.post("/register", registerController.funcregister);
 router.post("/login", loginController.loginController);
 router.post("/token", tokenController.resetToken);

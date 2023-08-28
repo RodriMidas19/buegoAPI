@@ -8,7 +8,7 @@ const UserDataModel = async (token) => {
   const user = await pool
     .request()
     .input("id", sql.Int, token.id)
-    .query("SELECT * FROM tbl_funcionarios WHERE Id_funcionario = @id");
+    .query("SELECT *,tbl_cargos.Nome_cargo as CargoN FROM tbl_funcionarios inner join tbl_cargos on tbl_funcionarios.Cargo = tbl_cargos.Id_cargo WHERE Id_funcionario = @id");
 
   const data = user.recordset[0];
 
