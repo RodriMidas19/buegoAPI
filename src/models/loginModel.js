@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const login = async (user) => {
+  console.log(user);
   const pool = await connection;
 
   const email = await pool
@@ -34,7 +35,7 @@ const login = async (user) => {
             .query(
               "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
             );
-
+              console.log(accessToken,refreshToken)
           return {
              accessToken: accessToken,
              refreshToken: refreshToken,
