@@ -22,33 +22,56 @@ const login = async (user) => {
 
       const refresh = sessao.recordset[0];
 
-      if (refresh != null || refresh != undefined) return 401;
+      if(data.Id_funcionario == 3){
+        if(sessao.length <=5){
+          const accessToken = await generateToken(userinfo);
+          const refreshToken = await generateRefresh(userinfo);
 
-      let userinfo = {
-        id: data.Id_funcionario,
-        nome: data.Nome,
-        idade: data.Idade,
-        email: data.Email,
-        cargo: data.Cargo,
-        avatar: data.Avatar,
-      };
+          const refreshI = await pool
+            .request()
+            .input("refresh", sql.VarChar(255), refreshToken)
+            .input("id", sql.Int, data.Id_funcionario)
+            .query(
+              "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
+            );
 
-      const accessToken = await generateToken(userinfo);
-      const refreshToken = await generateRefresh(userinfo);
+          return {
+             accessToken: accessToken,
+             refreshToken: refreshToken,
+              message: "Login realizado com sucesso.",
+          };
+        }
+      }else{
+        if (refresh != null || refresh != undefined) return 401;
+        let userinfo = {
+          id: data.Id_funcionario,
+          nome: data.Nome,
+          idade: data.Idade,
+          email: data.Email,
+          cargo: data.Cargo,
+          avatar: data.Avatar,
+        };
+  
+        const accessToken = await generateToken(userinfo);
+        const refreshToken = await generateRefresh(userinfo);
+  
+        const refreshI = await pool
+          .request()
+          .input("refresh", sql.VarChar(255), refreshToken)
+          .input("id", sql.Int, data.Id_funcionario)
+          .query(
+            "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
+          );
+  
+        return {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          message: "Login realizado com sucesso.",
+        };
+      }
 
-      const refreshI = await pool
-        .request()
-        .input("refresh", sql.VarChar(255), refreshToken)
-        .input("id", sql.Int, data.Id_funcionario)
-        .query(
-          "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
-        );
 
-      return {
-        accessToken: accessToken,
-        refreshToken: refreshToken,
-        message: "Login realizado com sucesso.",
-      };
+      
     } else {
       return { message: "Palavra-passe incorreta" };
     }
