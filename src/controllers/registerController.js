@@ -11,11 +11,11 @@ const funcregister = async (request, response) => {
   };
   let data = await register.createAccount(user);
   if (data == 406) {
-    return response.status(data).json({ message: "Email já existe." });
+    return response.status(data).json("Email já existe.");
   } else if (data == 201) {
     return response
       .status(data)
-      .json({ message: "Funcionário registado com sucesso." });
+      .json("Funcionário registado com sucesso.");
   }
 };
 
