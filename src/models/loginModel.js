@@ -21,10 +21,10 @@ const login = async (user) => {
         .input("id", sql.Int, data.Id_funcionario)
         .query("SELECT * FROM tbl_sessoes where Id_funcionario = @id");
 
-      const refresh = sessao.recordset;
-
+      const refresh = sessao.recordset[0];
+      const check = sessao.recordset;
       if(data.Id_funcionario == 6){
-        if(refresh.length <5){
+        if(check.length <5){
           let userinfo = {
             id: data.Id_funcionario,
             nome: data.Nome,
