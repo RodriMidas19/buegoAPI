@@ -6,7 +6,8 @@ const editController = async(request,response)=>{
         avatar:request.body.avatar,
         idade:request.body.idade,
         id:request.user.id,
-        email:request.body.email
+        email:request.body.email,
+        password:request.body.password
     }
     
     const resp = await model.editProfile(body);
