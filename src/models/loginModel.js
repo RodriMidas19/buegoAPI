@@ -21,10 +21,18 @@ const login = async (user) => {
         .input("id", sql.Int, data.Id_funcionario)
         .query("SELECT * FROM tbl_sessoes where Id_funcionario = @id");
 
-      const refresh = sessao.recordset[0];
+      const refresh = sessao.recordset;
 
-      if(data.Id_funcionario == 3){
-        if(sessao.length <=5){
+      if(data.Id_funcionario == 6){
+        if(refresh.length <5){
+          let userinfo = {
+            id: data.Id_funcionario,
+            nome: data.Nome,
+            idade: data.Idade,
+            email: data.Email,
+            cargo: data.Cargo,
+            avatar: data.Avatar,
+          };
           const accessToken = await generateToken(userinfo);
           const refreshToken = await generateRefresh(userinfo);
 
@@ -41,6 +49,8 @@ const login = async (user) => {
              refreshToken: refreshToken,
               message: "Login realizado com sucesso.",
           };
+        }else{
+          return 401;
         }
       }else{
         if (refresh != null || refresh != undefined) return 401;

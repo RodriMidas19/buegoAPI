@@ -1,5 +1,7 @@
 const connection = require("../config/connection");
 const sql = require("mssql");
+const bcrypt = require("bcrypt");
+
 
 const editProfile = async(data)=>{
     const pool = await connection;
