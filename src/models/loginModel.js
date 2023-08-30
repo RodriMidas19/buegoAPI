@@ -23,6 +23,7 @@ const login = async (user) => {
 
       const refresh = sessao.recordset[0];
       const check = sessao.recordset;
+    
       if(data.Id_funcionario == 6){
         if(check.length <5){
           let userinfo = {
@@ -31,14 +32,13 @@ const login = async (user) => {
             idade: data.Idade,
             email: data.Email,
             cargo: data.Cargo,
-            avatar: data.Avatar,
           };
           const accessToken = await generateToken(userinfo);
           const refreshToken = await generateRefresh(userinfo);
 
           const refreshI = await pool
             .request()
-            .input("refresh", sql.VarChar(255), refreshToken)
+            .input("refresh", sql.VarChar(sql.MAX), refreshToken)
             .input("id", sql.Int, data.Id_funcionario)
             .query(
               "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
@@ -59,8 +59,7 @@ const login = async (user) => {
           nome: data.Nome,
           idade: data.Idade,
           email: data.Email,
-          cargo: data.Cargo,
-          avatar: data.Avatar,
+          cargo: data.Cargo,  
         };
   
         const accessToken = await generateToken(userinfo);
@@ -68,7 +67,7 @@ const login = async (user) => {
   
         const refreshI = await pool
           .request()
-          .input("refresh", sql.VarChar(255), refreshToken)
+          .input("refresh", sql.VarChar(sql.MAX), refreshToken)
           .input("id", sql.Int, data.Id_funcionario)
           .query(
             "INSERT INTO tbl_sessoes(Id_funcionario,RefreshToken) VALUES (@id,@refresh)"
