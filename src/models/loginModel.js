@@ -91,9 +91,7 @@ const login = async (user) => {
 };
 
 const generateToken = async (data) => {
-  return await jwt.sign(data, process.env.ACESS_TOKEN_SECRET, {
-    expiresIn: "10m",
-  });
+  return await jwt.sign(data, process.env.ACESS_TOKEN_SECRET);
 };
 
 const generateRefresh = async (data) => {
