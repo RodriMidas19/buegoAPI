@@ -55,7 +55,7 @@ const getTreinos = async () => {
     const consultas = await pool
       .request()
       .query(
-        "SELECT * from tbl_funcionarios"
+        "SELECT * from tbl_treinos"
       );
 
     const data = consultas.recordset;
