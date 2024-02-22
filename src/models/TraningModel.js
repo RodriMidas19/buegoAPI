@@ -9,10 +9,10 @@ const addTreino = async (data) => {
   try {
     const treinos = await pool
       .request()
-      .input("hora", sql.VarChar(100), data.hora)
-      .input("data", sql.VarChar(100), data.data)
+      .input("start", sql.VarChar(sql.MAX), data.start)
+      .input("end", sql.VarChar(sql.MAX), data.end)
       .query(
-        "SELECT * from tbl_treinos where data_treino = @data AND hora_treino = @hora"
+        "SELECT * from tbl_treinos where Start_Treino = @start AND End_Treino = @end"
       );
     const total = treinos.recordset;
     console.log(total)
@@ -20,12 +20,15 @@ const addTreino = async (data) => {
 
     const Treino = await pool
       .request()
-      .input("hora", sql.VarChar(100), data.hora)
-      .input("data", sql.VarChar(100), data.data)
-      .input("idFunc", sql.Int, data.id)
-      .input("aluno", sql.VarChar(50), data.aluno)
+      .input("start", sql.VarChar(sql.MAX), data.start)
+      .input("end", sql.VarChar(sql.MAX), data.end)
+      .input("id_func", sql.Int, data.id_func)
+      .input("summary", sql.VarChar(sql.MAX), data.summary)
+      .input("title", sql.VarChar(sql.MAX), data.title)
+      .input("color", sql.VarChar(sql.MAX), data.color)
+      .input("aluno", sql.VarChar(sql.MAX), data.aluno)
       .query(
-        "INSERT INTO tbl_treinos(data_treino,hora_treino,id_funcionario,nome_aluno) VALUES (@data,@hora,@idFunc,@aluno)"
+        "INSERT INTO tbl_treinos(Id_Funcionario,Start_Treino,End_Treino,Summary,Title,Color,Nome_Aluno) VALUES (@id_func,@start,@end,@summary,@title,@color,@nome)"
       );
     return 200;
   } catch (error) {
@@ -52,7 +55,7 @@ const getTreinos = async () => {
     const consultas = await pool
       .request()
       .query(
-        "SELECT Id_treino,data_treino,hora_treino,tbl_funcionarios.Nome, nome_aluno FROM tbl_treinos inner join tbl_funcionarios on tbl_funcionarios.Id_funcionario = tbl_treinos.Id_funcionario"
+        "SELECT * from tbl_funcionarios"
       );
 
     const data = consultas.recordset;
