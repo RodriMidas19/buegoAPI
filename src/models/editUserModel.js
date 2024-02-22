@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 
 
 const editProfile = async(data)=>{
+    console.log(data);
     const pool = await connection;
     try {
         const hashedPassowrd = await bcrypt.hash(data.password, 10);
