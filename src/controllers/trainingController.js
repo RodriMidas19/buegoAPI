@@ -5,10 +5,13 @@ const model = require("../models/TraningModel");
 const addTreino = async (request, response) => {
   console.log(request.body);
   let body = {
-    hora: request.body.hora,
-    data: request.body.data,
-    id: request.user.id,
-    aluno: request.body.aluno,
+    id_func : request.body.body.Id_Funcionario,
+    start: request.body.body.Start_Treino,
+    end: request.body.body.End_Treino,
+    summary : request.body.body.Summary,
+    title : request.body.body.Title,
+    color:rquest.body.body.Color,
+    aluno : request.body.body.Nome_Aluno
   };
   const resp = await model.addTreino(body);
 
