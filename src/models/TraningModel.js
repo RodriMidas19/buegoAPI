@@ -4,6 +4,7 @@ const sql = require("mssql");
 
 
 const addTreino = async (data) => {
+  console.log(data);
   const pool = await connection;
   console.log(data)
   try {
