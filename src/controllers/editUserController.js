@@ -3,12 +3,12 @@ const model = require("../models/editUserModel");
 const editController = async(request,response)=>{
     console.log(request.body);
     let body = {
-        nome:request.body.nome,
-        avatar:request.body.avatar,
-        idade:request.body.idade,
+        nome:request.body.body.nome,
+        avatar:request.body.body.avatar,
+        idade:request.body.body.idade,
         id:request.user.id,
-        email:request.body.email,
-        password:request.body.password
+        email:request.body.body.email,
+        password:request.body.body.password
     }
     
     const resp = await model.editProfile(body);
