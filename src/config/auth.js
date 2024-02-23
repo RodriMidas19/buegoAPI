@@ -3,6 +3,7 @@ require("dotenv").config();
 
 //Create
 const authenticateToken = async (request, response, next) => {
+  console.log(request.headers["authorization"]);
   const authHeader = request.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return response.sendStatus(401);
