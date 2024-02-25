@@ -29,7 +29,7 @@ const addTreino = async (data) => {
       .input("color", sql.VarChar(sql.MAX), data.color)
       .input("aluno", sql.VarChar(sql.MAX), data.aluno)
       .query(
-        "INSERT INTO tbl_treinos(Id_Funcionario,Start_Treino,End_Treino,Summary,Title,Color,Nome_Aluno) VALUES (@id_func,@start,@end,@summary,@title,@color,@nome)"
+        "INSERT INTO tbl_treinos(Id_Funcionario,Start_Treino,End_Treino,Summary,Title,Color,Nome_Aluno) VALUES (@id_func,@start,@end,@summary,@title,@color,@aluno)"
       );
     return 200;
   } catch (error) {
