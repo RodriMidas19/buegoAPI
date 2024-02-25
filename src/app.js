@@ -6,7 +6,9 @@ const whitelist = [
   "http://localhost:3000",
   "http://localhost:3333",
   "https://www.buego.pt",
-  "https://www.buego.pt/"
+  "https://www.buego.pt/",
+  "http://localhost:8081/",
+  "http://localhost:8081"
 ];
 
 const corsOptions = {
