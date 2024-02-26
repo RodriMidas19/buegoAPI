@@ -12,9 +12,9 @@ const addConsulta = async (data) => {
       "SELECT * from tbl_consultas where Start_Consulta = @start AND End_Consulta = @end"
     );
     const total = consultas.recordset;
-
-    if (total.length >= 1) return 401;
     console.log("TOTAL CONSULTAS: " + total.length)
+    if (total.length >= 1) return 401;
+    
     const Treino = await pool
     .request()
     .input("start", sql.VarChar(sql.MAX), data.start)
