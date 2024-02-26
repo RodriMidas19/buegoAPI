@@ -52,7 +52,7 @@ const getConsultas = async () => {
 
     const consultas = await pool.request().query("SELECT * FROM tbl_consultas");
 
-    const data = consultas.recordset[0];
+    const data = consultas.recordset;
 
     return data;
   } catch (error) {

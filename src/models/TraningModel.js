@@ -53,13 +53,13 @@ const getTreinos = async () => {
   try {
     const pool = await connection;
 
-    const consultas = await pool
+    const treinos = await pool
       .request()
       .query(
         "SELECT * from tbl_treinos"
       );
 
-    const data = consultas.recordset;
+    const data = treinos.recordset;
 
     return data;
   } catch (error) {
