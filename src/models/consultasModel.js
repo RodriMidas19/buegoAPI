@@ -14,7 +14,6 @@ const addConsulta = async (data) => {
     const total = consultas.recordset;
 
     if (total.length >= 1) return 401;
-
     const Treino = await pool
     .request()
     .input("start", sql.VarChar(sql.MAX), data.start)

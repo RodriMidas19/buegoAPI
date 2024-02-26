@@ -1,10 +1,11 @@
 const model = require("../models/consultasModel");
 
 const addConsultas = async (request, response) => {
+  console.log(request.body)
   let body = {
     id_func : request.body.body.Id_Funcionario,
-    start: request.body.body.Start_Treino,
-    end: request.body.body.End_Treino,
+    start: request.body.body.Start_Consulta,
+    end: request.body.body.End_Consulta,
     summary : request.body.body.Summary,
     title : request.body.body.Title,
     color:request.body.body.Color,
