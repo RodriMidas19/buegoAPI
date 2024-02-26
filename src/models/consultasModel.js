@@ -5,25 +5,28 @@ const addConsulta = async (data) => {
   const pool = await connection;
   try {
     const consultas = await pool
-      .request()
-      .input("hora", sql.VarChar(100), data.hora)
-      .input("data", sql.VarChar(100), data.data)
-      .query(
-        "SELECT * FROM tbl_consultas WHERE data_consulta = @data AND hora_consulta = @hora"
-      );
+    .request()
+    .input("start", sql.VarChar(sql.MAX), data.start)
+    .input("end", sql.VarChar(sql.MAX), data.end)
+    .query(
+      "SELECT * from tbl_consultas where Start_Consulta = @start AND End_Consulta = @end"
+    );
     const total = consultas.recordset;
 
     if (total.length >= 1) return 401;
 
     const Treino = await pool
-      .request()
-      .input("hora", sql.VarChar(100), data.hora)
-      .input("data", sql.VarChar(100), data.data)
-      .input("idFunc", sql.Int, data.id)
-      .input("aluno", sql.VarChar(50), data.aluno)
-      .query(
-        "INSERT INTO tbl_consultas(data_consulta,hora_consulta,id_funcionario,nome_paciente) VALUES (@data,@hora,@idFunc,@aluno)"
-      );
+    .request()
+    .input("start", sql.VarChar(sql.MAX), data.start)
+    .input("end", sql.VarChar(sql.MAX), data.end)
+    .input("id_func", sql.Int, data.id_func)
+    .input("summary", sql.VarChar(sql.MAX), data.summary)
+    .input("title", sql.VarChar(sql.MAX), data.title)
+    .input("color", sql.VarChar(sql.MAX), data.color)
+    .input("aluno", sql.VarChar(sql.MAX), data.aluno)
+    .query(
+      "INSERT INTO tbl_Consultas(Id_Funcionario,Start_Consulta,End_Consulta,Summary,Title,Color,Nome_Aluno) VALUES (@id_func,@start,@end,@summary,@title,@color,@aluno)"
+    );
     return 200;
   } catch (error) {
     console.log(error);
