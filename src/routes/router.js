@@ -32,7 +32,7 @@ router.get("/treinosNome/:nome",trainingController.getTreinosNome);
 router.get("/treinosHD/:dia/:mes/:ano", trainingController.getTreinosHD);
 router.get("/treinos", trainingController.getTreinos);
 router.post("/training", auth.authenticateToken,trainingController.addTreino);
-router.delete("/Dtraining", trainingController.DeleteTrain);
+router.delete("/Dtraining/:id", trainingController.DeleteTrain);
 
 //Consultas
 router.get("/consultasNomeData/:nome/:data",consultasController.getConsultasNomeData)

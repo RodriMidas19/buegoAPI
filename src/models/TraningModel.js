@@ -39,11 +39,13 @@ const addTreino = async (data) => {
 const deleteTrain = async (id) => {
   const pool = await connection;
   try {
-    const consultas = await pool
+    if(id){
+      const consultas = await pool
       .request()
       .input("id", sql.Int, id)
       .query("DELETE tbl_treinos WHERE Id_treino = @id");
-    return 200;
+      return 200;
+    }
   } catch (error) {
     console.log(error);
   }
