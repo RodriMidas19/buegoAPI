@@ -44,6 +44,6 @@ router.post(
   auth.authenticateToken,
   consultasController.addConsultas
 );
-router.delete("/Dconsulta", consultasController.DeleteConsultas);
+router.delete("/Dconsulta/:id", consultasController.DeleteConsultas);
 
 module.exports = router;
