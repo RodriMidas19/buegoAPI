@@ -26,8 +26,9 @@ const createAccount = async (user) => {
         .input("cargo", sql.Int, user.cargo)
         .input("password", sql.VarChar(250), hashedPassowrd)
         .input("avatar", sql.VarChar(sql.MAX), user.avatar)
+        .input("cor",sql.VarChar(sql.MAX),user.cor)
         .query(
-          "INSERT INTO tbl_funcionarios(Nome,Idade,Email,Cargo,Password,Avatar) VALUES (@nome,@idade,@email,@cargo,@password,@avatar)"
+          "INSERT INTO tbl_funcionarios(Nome,Idade,Email,Cargo,Password,Avatar,Color) VALUES (@nome,@idade,@email,@cargo,@password,@avatar,@cor)"
         );
 
       return 201;
