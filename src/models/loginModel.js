@@ -48,6 +48,7 @@ const login = async (user) => {
              accessToken: accessToken,
              refreshToken: refreshToken,
               message: "Login realizado com sucesso.",
+              cargo : data.Cargo
           };
         }else{
           return 401;
@@ -77,6 +78,7 @@ const login = async (user) => {
           accessToken: accessToken,
           refreshToken: refreshToken,
           message: "Login realizado com sucesso.",
+          cargo : data.Cargo
         };
       }
 
@@ -91,11 +93,11 @@ const login = async (user) => {
 };
 
 const generateToken = async (data) => {
-  return await jwt.sign(data, process.env.ACESS_TOKEN_SECRET);
+  return jwt.sign(data, process.env.ACESS_TOKEN_SECRET);
 };
 
 const generateRefresh = async (data) => {
-  return await jwt.sign(data, process.env.REFRESH_TOKEN_SECRET);
+  return jwt.sign(data, process.env.REFRESH_TOKEN_SECRET);
 };
 
 module.exports = { login };
